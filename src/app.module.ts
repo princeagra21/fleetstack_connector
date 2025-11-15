@@ -3,6 +3,9 @@ import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+import { QueuesModule } from './queues/queues.module';
+import { TcpModule } from './tcp/tcp.module';
+import { PositionsModule } from './positions/positions.module';
 
 @Module({
   imports: [
@@ -18,6 +21,11 @@ import { AppService } from './app.service';
         synchronize: true, // disable in production
       }),
     }),
+
+    // Application modules
+    QueuesModule, // Redis + BullMQ queues
+    PositionsModule, // Position service
+    TcpModule, // TCP server + decoders
   ],
   controllers: [AppController],
   providers: [AppService],
