@@ -1,7 +1,7 @@
 // src/tcp/protocol-decoder/gt06.decoder.ts
 import { Injectable } from '@nestjs/common';
 import { PositionsService } from 'src/positions/positions.service';
-import { IProtocolDecoder } from './protocol-decoder.interface';
+import { IProtocolDecoder } from '../protocol-decoder.interface';
 
 @Injectable()
 export class GT06Decoder implements IProtocolDecoder {

@@ -1,12 +1,12 @@
 import { Provider } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 
-import { TeltonikaFrameDecoder } from './frame-decoder/teltonika.frame.decoder';
-import { GT06FrameDecoder } from './frame-decoder/gt06.frame.decoder';
-import { TeltonikaDecoder } from './protocol-decoder/teltonika.decoder';
-import { GT06Decoder } from './protocol-decoder/gt06.decoder';
-import { IFrameDecoder } from './frame-decoder/frame-decoder.interface';
-import { IProtocolDecoder } from './protocol-decoder/protocol-decoder.interface';
+import { TeltonikaFrameDecoder } from './teltonika/teltonika.frame.decoder';
+import { GT06FrameDecoder } from './gt06/gt06.frame.decoder';
+import { TeltonikaDecoder } from './teltonika/teltonika.decoder';
+import { GT06Decoder } from './gt06/gt06.decoder';
+import { IFrameDecoder } from './frame-decoder.interface';
+import { IProtocolDecoder } from './protocol-decoder.interface';
 
 export interface FrameDecoderConstructor {
   new (...args: any[]): IFrameDecoder;

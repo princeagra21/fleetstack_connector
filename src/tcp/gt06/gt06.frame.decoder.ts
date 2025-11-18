@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { IFrameDecoder } from './frame-decoder.interface';
+import { IFrameDecoder } from '../frame-decoder.interface';
 
 @Injectable()
 export class GT06FrameDecoder implements IFrameDecoder {
