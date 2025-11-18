@@ -1,9 +1,18 @@
-import { Module } from '@nestjs/common';
-import { TeltonikaDecoder } from './protocol-decoder/teltonika.decoder';
-import { PositionsService } from 'src/positions/positions.service';
+import { Module, DynamicModule } from '@nestjs/common';
+import { DecoderBinding } from './decoder-config.provider';
+import { createTcpServerProvider } from './tcp-server.provider';
 
-@Module({
-  providers: [TeltonikaDecoder, PositionsService],
-  exports: [TeltonikaDecoder],
-})
-export class TcpModule {}
+@Module({})
+export class TcpModule {
+  static register(bindings: DecoderBinding[]): DynamicModule {
+    const providers = bindings.map((binding) =>
+      createTcpServerProvider(binding),
+    );
+
+    return {
+      module: TcpModule,
+      providers,
+      exports: providers,
+    };
+  }
+}
