@@ -8,8 +8,6 @@ export class GT06Decoder implements IProtocolDecoder {
   constructor(private readonly positionsService: PositionsService) {}
 
   decode(frame: Buffer) {
-    console.log('Decoding GT06 frame of length:', frame.length);
-
     // Minimal parsing example (replace with real GT06 parser)
     const deviceId = frame.slice(2, 10).toString('hex'); // example
     const packet = {

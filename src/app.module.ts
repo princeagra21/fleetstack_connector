@@ -4,6 +4,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { TcpModule } from './tcp/tcp.module';
+import { PositionsModule } from './positions/positions.module';
 
 @Module({
   imports: [
@@ -19,7 +20,7 @@ import { TcpModule } from './tcp/tcp.module';
         synchronize: true, // disable in production
       }),
     }),
-
+    PositionsModule,
     TcpModule.forRoot(), // Listen Devices
   ],
 

@@ -9,12 +9,15 @@ export class TcpServerService {
   async start(): Promise<void> {
     this.server = net.createServer((socket) => {
       const port = this.binding.port;
-      console.log(`Client connected on port ${port}`);
+
+      const remoteAddress = `${socket.remoteAddress}:${socket.remotePort}`;
+      console.log(`Connected: ${remoteAddress}:${port}`);
 
       const frameDecoder = new this.binding.frameDecoder();
       const protocolDecoder = new this.binding.protocolDecoder();
 
       socket.on('data', (data) => {
+        console.log(`[${port}] << ${remoteAddress} : ${data.toString('hex')}`);
         try {
           const frames = frameDecoder.extractFrames(data);
 
@@ -29,7 +32,7 @@ export class TcpServerService {
       });
 
       socket.on('close', () => {
-        console.log(`Client disconnected from port ${port}`);
+        console.log(`Disconnected (${port})`);
       });
 
       socket.on('error', (err) => {
