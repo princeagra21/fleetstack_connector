@@ -13,6 +13,7 @@ export class PositionsService {
   }
 
   async addPositionJob(data: any) {
+    console.log('Adding position job to queue:', data);
     await this.positionsQueue.add('save-position', data);
   }
 

@@ -16,9 +16,6 @@ export class TeltonikaDecoder {
       timestamp: Date.now(),
     };
 
-    // Add job using PositionsService
-    void this.positionsService.addPositionJob(packet);
-
     return packet;
   }
 }

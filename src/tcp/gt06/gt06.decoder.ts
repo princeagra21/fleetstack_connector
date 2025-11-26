@@ -16,9 +16,7 @@ export class GT06Decoder implements IProtocolDecoder {
       lon: 90.2, // dummy
       timestamp: Date.now(),
     };
-
-    // Add job using PositionsService
-    void this.positionsService.addPositionJob(packet);
+    
     return packet;
   }
 }

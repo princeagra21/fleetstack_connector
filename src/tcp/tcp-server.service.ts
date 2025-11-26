@@ -1,10 +1,10 @@
 import * as net from 'net';
 import { DecoderBinding } from './decoder-config.provider';
+import { PositionsService } from 'src/positions/positions.service';
 
 export class TcpServerService {
   private server: net.Server;
-
-  constructor(private readonly binding: DecoderBinding) {}
+  constructor(private readonly binding: DecoderBinding, private readonly positionsService: PositionsService) {}
 
   async start(): Promise<void> {
     this.server = net.createServer((socket) => {
@@ -25,6 +25,7 @@ export class TcpServerService {
             // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
             const result = protocolDecoder.decode(frame, socket);
             console.log(`[${port}] Decoded Data:`, result);
+            void this.positionsService.addPositionJob(result);
           }
         } catch (err) {
           console.error(`Error decoding data on port ${port}:`, err);

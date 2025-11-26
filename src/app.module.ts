@@ -20,7 +20,6 @@ import { PositionsModule } from './positions/positions.module';
         synchronize: true, // disable in production
       }),
     }),
-    PositionsModule,
     TcpModule.forRoot(), // Listen Devices
   ],
 

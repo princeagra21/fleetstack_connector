@@ -5,6 +5,8 @@ import {
   DecoderConfigProvider,
 } from './decoder-config.provider';
 import { createTcpServerProvider } from './tcp-server.provider';
+import { PositionsService } from 'src/positions/positions.service';
+import { PositionsModule } from 'src/positions/positions.module';
 
 @Module({})
 export class TcpModule {
@@ -12,15 +14,16 @@ export class TcpModule {
     const tcpServerProviders: Provider[] = [
       {
         provide: 'TCP_SERVERS',
-        useFactory: (bindings: DecoderBinding[]) => {
+        useFactory: (bindings: DecoderBinding[], positionsService: PositionsService) => {
           console.log("Setting up decoders...");
-          bindings.map((binding) => createTcpServerProvider(binding));
+          bindings.map((binding) => createTcpServerProvider(binding, positionsService));
         },
-        inject: [DECODER_CONFIG],
+        inject: [DECODER_CONFIG, PositionsService],
       },
     ];
 
     return {
+      imports: [PositionsModule],
       module: TcpModule,
       providers: [DecoderConfigProvider, ...tcpServerProviders],
       exports: tcpServerProviders,
