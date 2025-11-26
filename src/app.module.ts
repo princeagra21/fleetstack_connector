@@ -20,7 +20,7 @@ import { TcpModule } from './tcp/tcp.module';
       }),
     }),
 
-    TcpModule, // Listen Devices
+    TcpModule.forRoot(), // Listen Devices
   ],
 
   // Listen API

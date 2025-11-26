@@ -10,6 +10,6 @@ async function bootstrap() {
   const server = app.getHttpServer() as import('http').Server;
   const addr = server.address();
   const actualPort = addr && typeof addr === 'object' ? addr.port : port;
-  console.log(`Listener running on port ${actualPort}`);
+  console.log(`Web server running on port ${actualPort}`);
 }
 void bootstrap();

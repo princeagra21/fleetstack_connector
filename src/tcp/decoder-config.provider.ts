@@ -23,10 +23,10 @@ export interface DecoderBinding {
   protocolDecoder: ProtocolDecoderConstructor;
 }
 
-export const DECODER_CONFIG_TOKEN = 'DECODER_CONFIG';
+export const DECODER_CONFIG = 'DECODER_CONFIG';
 
 export const DecoderConfigProvider: Provider = {
-  provide: DECODER_CONFIG_TOKEN,
+  provide: DECODER_CONFIG,
   useFactory: (configService: ConfigService): DecoderBinding[] => {
     return [
       {

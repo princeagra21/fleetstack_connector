@@ -39,7 +39,7 @@ export class TcpServerService {
 
     return new Promise((resolve, reject) => {
       this.server.listen(this.binding.port, () => {
-        console.log(`TCP Server started on port ${this.binding.port}`);
+        console.log(`Decoder started. \t ${this.binding.name} (${this.binding.port})`);
         resolve();
       });
 
