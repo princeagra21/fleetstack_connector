@@ -1,12 +1,18 @@
 import { Injectable, Inject } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
 import { Queue } from 'bullmq';
 import Redis from 'ioredis';
+import { PositionEntity } from 'src/db/entities/position.entity';
+import { Repository } from 'typeorm';
 
 @Injectable()
 export class PositionsService {
   private positionsQueue: Queue;
 
-  constructor(@Inject('REDIS_CLIENT') private readonly redisClient: Redis) {
+  constructor(
+    @InjectRepository(PositionEntity)
+    private readonly positionsRepository: Repository<PositionEntity>,
+    @Inject('REDIS_CLIENT') private readonly redisClient: Redis) {
     this.positionsQueue = new Queue('positions', {
       connection: this.redisClient,
     });
@@ -15,6 +21,16 @@ export class PositionsService {
   async addPositionJob(data: any) {
     console.log('Adding position job to queue:', data);
     await this.positionsQueue.add('save-position', data);
+  }
+
+  async savePositionToDb(data: any) {
+    console.log('Saving position to database:', data);
+    const position = this.positionsRepository.create(data);
+    await this.positionsRepository.save(position);
+  }
+
+  async getPositions(): Promise<PositionEntity[]> {
+    return this.positionsRepository.find();
   }
 
   async quitRedisClient() {
